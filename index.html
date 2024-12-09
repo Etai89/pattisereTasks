@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script type="module" src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Task List</h1>
+
+    <select id="type">
+        <!-- Options will be dynamically added here -->
+    </select><br>
+    <input id="newTask" type="text" placeholder="Task"><br>
+    <input id="amount" type="number" placeholder="Amount"><br>
+
+    <button id="add">Add Task</button>
+
+    <table>
+        <thead>
+            <th>Task</th>
+            <th>Type</th>
+            <th>Amount</th>
+            <th>Actions</th>
+        </thead>
+        <tbody id="table">
+            <!-- Rows will be dynamically added here -->
+        </tbody>
+    </table>
+</body>
+</html>
