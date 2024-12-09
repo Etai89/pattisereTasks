@@ -9,22 +9,34 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Task List</h1>
+    <h1>הזמנות לה פטיסייר</h1>
 
     <select id="type">
         <!-- Options will be dynamically added here -->
     </select><br>
-    <input id="newTask" type="text" placeholder="Task"><br>
-    <input id="amount" type="number" placeholder="Amount"><br>
+    <input id="newTask" type="text" placeholder="שם מוצר"><br>
+    <input id="amount" type="number" placeholder="כמות"><br>
 
-    <button id="add">Add Task</button>
+    <button id="add">הוסף להזמנות</button>
+
+    <button id="order">ייצא</button>
+    <!-- <button id="sort">ארגון</button> -->
+
+    <div id="selectedTasks" style="margin-top: 20px;">
+        <h2>מוצרים שנבחרו</h2>
+        <div id="orderedList"></div>
+        
+        <button id="copyButton">העתק הזמנה</button>
+        
+    </div>
 
     <table>
         <thead>
-            <th>Task</th>
-            <th>Type</th>
-            <th>Amount</th>
-            <th>Actions</th>
+            <th class="select">בחר</th>
+            <th>מוצר</th>
+            <th class="supplier">ספק</th>
+            <th class="amountT">כמות</th>
+            <th class="deleteT">מחיקה</th>
         </thead>
         <tbody id="table">
             <!-- Rows will be dynamically added here -->

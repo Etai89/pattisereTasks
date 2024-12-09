@@ -41,7 +41,18 @@ table th {
     background-color: #4CAF50;
     color: white;
 }
-
+.select{
+    width: 50px;
+}
+.supplier{
+    width: 100px;
+}
+.amountT{
+    width: 50px;
+}
+.deleteT{
+    width: 50px;
+}
 button {
     padding: 5px 10px;
     background-color: red;
