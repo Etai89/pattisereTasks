@@ -1,4 +1,3 @@
-// script.js
 import { typesList } from './types.js'; // Import the typesList from types.js
 
 $(document).ready(function () {
@@ -25,6 +24,10 @@ $(document).ready(function () {
             const option = $("<option></option>").val(key).text(typesList[key]);
             $type.append(option);  // Append the option to the select
         });
+
+        // Add "אחר" option at the end of the dropdown
+        const otherOption = $("<option></option>").val("other").text("אחר");
+        $type.append(otherOption);
     };
 
     // Function to display tasks in the table
@@ -38,7 +41,7 @@ $(document).ready(function () {
 
             $("<td></td>").append(checkbox).appendTo(newRow);
             $("<td></td>").text(task).appendTo(newRow);
-            $("<td></td>").text(types[index]).appendTo(newRow);
+            $("<td></td>").text(types[index]).addClass("type-cell").appendTo(newRow); // Add class to type cell
             $("<td></td>").text(amounts[index]).appendTo(newRow);
 
             // Create a delete button with a click handler
@@ -131,7 +134,13 @@ $(document).ready(function () {
     // Add new task
     $add.on("click", function () {
         const task = $newTask.val().trim();
-        const taskType = $type.val().trim();  // Get the selected type
+        let taskType = $type.val().trim();  // Get the selected type
+
+        // If the type is "other", use the custom input value
+        if (taskType === "other") {
+            taskType = $type.siblings("input").val().trim();  // Get value from the input field
+        }
+
         const taskAmount = $amount.val().trim();
 
         if (task && taskType && taskAmount) {
@@ -148,7 +157,7 @@ $(document).ready(function () {
             $newTask.val("");
             $type.val("");  // Clear the select dropdown
             $amount.val("");
-            sortTasksByType()
+            sortTasksByType();
             displayTasks(); // Update the table with new data
         } else {
             alert("תמלא את כל השדות");
@@ -161,7 +170,6 @@ $(document).ready(function () {
     });
 
     sortTasksByType();
-
 
     // Button to copy selected tasks to clipboard with title
     $copyButton.on("click", function () {
@@ -189,6 +197,31 @@ $(document).ready(function () {
             });
         } else {
             alert("No tasks selected to copy.");
+        }
+    });
+
+    // Event listener to select all tasks of the same type when the type text is clicked
+    $(document).on("click", ".type-cell", function() {
+        const clickedType = $(this).text().trim();
+
+        // Loop through all tasks and check checkboxes for those with the clicked type
+        $("tr").each(function() {
+            const rowType = $(this).find("td:eq(2)").text().trim();
+            if (rowType === clickedType) {
+                $(this).find(".task-checkbox").prop("checked", true);
+            }
+        });
+    });
+
+    // Event listener to switch from select dropdown to input field for "אחר"
+    $type.on("change", function() {
+        if ($(this).val() === "other") {
+            $(this).hide();  // Hide the select dropdown
+            const $input = $("<input type='text' id='customType' placeholder='Enter custom type'>");
+            $(this).after($input);  // Append the input field after the select
+        } else {
+            $("#customType").remove();  // Remove the input field if it's not "other"
+            $(this).show();  // Show the select dropdown again
         }
     });
 });
